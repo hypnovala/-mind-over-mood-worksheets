@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind Over Mood — Worksheets</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5EED8;
+    --cream-dark: #EDE3C3;
+    --gold: #C9A96E;
+    --gold-light: #DFC49A;
+    --gold-dark: #A8824A;
+    --brown: #2E1F0E;
+    --brown-mid: #4A3220;
+    --amber: #6B4C2A;
+    --amber-light: #8A6340;
+    --text-body: #3D2C1A;
+    --text-muted: #7A6048;
+    --border: rgba(201, 169, 110, 0.35);
+    --border-strong: rgba(201, 169, 110, 0.65);
+    --surface: #FDFAF2;
+    --surface-alt: #F9F2E0;
+  }
+
+  /* body styles moved to site-header/footer block below */
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .page-header .eyebrow {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 300;
+    color: var(--brown);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header h1 em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .page-header .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1.5px solid var(--border-strong);
+    margin-bottom: 2.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s;
+    margin-bottom: -1.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-tab:hover { color: var(--amber); }
+
+  .nav-tab.active {
+    color: var(--brown);
+    border-bottom-color: var(--gold);
+  }
+
+  .worksheet { display: none; }
+  .worksheet.active { display: block; }
+
+  .ws-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ws-number {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .ws-title-block h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+  }
+
+  .ws-title-block .ws-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  .intro-box {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .field-group { margin-bottom: 1.75rem; }
+
+  .field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .field-sublabel {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-body);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    resize: vertical;
+    line-height: 1.6;
+    transition: border-color 0.15s;
+  }
+
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+  }
+
+  textarea { min-height: 90px; }
+  textarea.sm { min-height: 60px; }
+  textarea.lg { min-height: 130px; }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 600px) {
+    .row-2, .row-3 { grid-template-columns: 1fr; }
+  }
+
+  .thought-record-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .card .card-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .mood-tracker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mood-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+
+  .mood-item label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amber);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .mood-item .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mood-item input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 3px;
+    background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,50%), var(--border-strong) var(--pct,50%), var(--border-strong) 100%);
+    border-radius: 2px;
+    outline: none;
+  }
+
+  .mood-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  .mood-item .mood-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--brown);
+    min-width: 22px;
+    text-align: right;
+  }
+
+  .belief-bar-wrapper {
+    margin-bottom: 1.75rem;
+  }
+
+  .belief-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+  }
+
+  .belief-bar-label span:first-child {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-body);
+  }
+
+  .belief-val {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold-dark);
+  }
+
+  .belief-bar-wrapper input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,50%), var(--border-strong) var(--pct,50%), var(--border-strong) 100%);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .belief-bar-wrapper input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  .evidence-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 600px) { .evidence-cols { grid-template-columns: 1fr; } }
+
+  .evidence-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .evidence-col .col-head {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .evidence-col.supports .col-head { color: #5A7A3A; }
+  .evidence-col.against .col-head { color: var(--amber-light); }
+
+  .evidence-list { list-style: none; }
+
+  .evidence-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+  }
+
+  .evidence-list li::before {
+    content: '—';
+    color: var(--gold);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .evidence-list li input[type="text"] {
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 2px 0;
+    font-size: 13px;
+    color: var(--text-body);
+  }
+
+  .evidence-list li input[type="text"]:focus {
+    border-bottom-color: var(--gold);
+    box-shadow: none;
+    outline: none;
+  }
+
+  .add-btn {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold-dark);
+    background: none;
+    border: 1px dashed var(--border-strong);
+    border-radius: 6px;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.5rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .add-btn:hover {
+    background: rgba(201, 169, 110, 0.08);
+    border-color: var(--gold);
+  }
+
+  .distortion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .chip {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    padding: 0.35rem 0.85rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--gold); color: var(--amber); }
+
+  .chip.selected {
+    background: rgba(201, 169, 110, 0.15);
+    border-color: var(--gold);
+    color: var(--brown);
+    font-weight: 500;
+  }
+
+  .thought-arrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .thought-box {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 80px;
+    font-size: 13.5px;
+    color: var(--text-body);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .thought-box.editable {
+    outline: none;
+    transition: border-color 0.15s;
+    cursor: text;
+  }
+
+  .thought-box.editable:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12); }
+  .thought-box.editable:empty::before { content: attr(data-ph); color: var(--text-muted); font-style: italic; font-size: 13px; }
+
+  .arrow-icon {
+    font-size: 1.5rem;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .action-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--brown);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.18s;
+  }
+
+  .btn-primary:hover { background: var(--brown-mid); }
+
+  .btn-secondary {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    background: transparent;
+    color: var(--amber);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-secondary:hover { background: rgba(201, 169, 110, 0.08); border-color: var(--gold); }
+
+  .progress-save {
+    font-size: 12px;
+    color: var(--text-muted);
+    align-self: center;
+    margin-left: auto;
+    font-weight: 300;
+  }
+
+  .reflection-card {
+    background: rgba(201, 169, 110, 0.07);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .reflection-card .rc-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .reflection-card p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--brown-mid);
+    line-height: 1.7;
+  }
+
+  .step-tracker {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .step-item {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    background: var(--surface);
+    color: var(--text-muted);
+    border-right: 1px solid var(--border);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: default;
+  }
+
+  .step-item:last-child { border-right: none; }
+  .step-item.done { background: rgba(201, 169, 110, 0.12); color: var(--amber); }
+  .step-item.current { background: var(--brown); color: var(--cream); }
+
+  .hot-cross-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hcb-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .hcb-cell .hcb-head {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--gold-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .hcb-cell .hcb-icon {
+    font-size: 1.1rem;
+    margin-right: 4px;
+    vertical-align: -2px;
+  }
+
+  .save-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .save-indicator.show { opacity: 1; }
+  .save-indicator::before { content: '✓'; color: #6A8F4A; font-weight: 500; }
+
+  .btn-email {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    background: transparent;
+    color: var(--gold-dark);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 0.65rem 1.25rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .btn-email:hover { background: rgba(201, 169, 110, 0.1); border-color: var(--gold-dark); }
+  .btn-email:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-email svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .email-status {
+    font-size: 11px;
+    font-weight: 400;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    display: none;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .email-status.sending {
+    display: inline-flex;
+    color: var(--text-muted);
+    background: rgba(201,169,110,0.08);
+  }
+
+  .email-status.sent {
+    display: inline-flex;
+    color: #3D6A1F;
+    background: rgba(90,140,50,0.08);
+  }
+
+  .email-status.error {
+    display: inline-flex;
+    color: #8B3A2A;
+    background: rgba(180,80,60,0.08);
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spin { animation: spin 0.9s linear infinite; display: inline-block; }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.75rem 0;
+  }
+
+  .ws5-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+  }
+
+  .ws5-table th {
+    background: var(--surface-alt);
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--gold-dark);
+    border-bottom: 1.5px solid var(--border-strong);
+  }
+
+  .ws5-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .ws5-table td input[type="text"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 2px 0;
+    font-size: 13px;
+  }
+
+  .ws5-table td input[type="text"]:focus {
+    border-bottom-color: var(--gold);
+    box-shadow: none;
+    outline: none;
+  }
+
+  .ws5-table tr:last-child td { border-bottom: none; }
+
+  .completion-banner {
+    display: none;
+    background: rgba(106, 143, 74, 0.08);
+    border: 1px solid rgba(106, 143, 74, 0.3);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 13.5px;
+    color: #3D5A27;
+    line-height: 1.6;
+  }
+
+  .completion-banner.visible { display: block; }
+
+  .completion-banner strong {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-size: 14px;
+  }
+
+  .site-header {
+    background: var(--brown);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .site-header-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .site-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    text-decoration: none;
+  }
+
+  .site-brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .site-brand-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .site-brand-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(201,169,110,0.4);
+    margin: 0 12px;
+    flex-shrink: 0;
+  }
+
+  .site-brand-sub {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .site-header-year {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: rgba(201,169,110,0.55);
+    text-transform: uppercase;
+  }
+
+  .site-footer {
+    background: var(--brown);
+    margin-top: 5rem;
+    width: 100%;
+  }
+
+  .site-footer-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+    border-top: 1px solid rgba(201,169,110,0.2);
+  }
+
+  .footer-brand-block .footer-name {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .footer-brand-block .footer-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .footer-brand-block .footer-tagline {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.6);
+    margin-bottom: 16px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(245,238,216,0.55);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-right {
+    text-align: right;
+  }
+
+  .footer-right .footer-copy {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 11px;
+    color: rgba(201,169,110,0.45);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    line-height: 1.8;
+  }
+
+  .footer-ornament {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.2);
+    font-style: italic;
+    line-height: 1;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  @media (max-width: 540px) {
+    .site-footer-inner { grid-template-columns: 1fr; }
+    .footer-right { text-align: left; }
+    .footer-ornament { text-align: left; }
+  }
+
+  body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: var(--cream);
+    color: var(--text-body);
+    min-height: 100vh;
+    padding: 0 0 0;
+  }
+
+  .page-content {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+
+  .client-email-bar {
+    background: var(--surface-alt);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .client-email-bar label {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .client-email-bar input[type="email"] {
+    flex: 1;
+    min-width: 200px;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--text-body);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    padding: 0.5rem 0.85rem;
+    transition: border-color 0.15s;
+  }
+
+  .client-email-bar input[type="email"]:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+  }
+
+  .client-email-bar .email-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 300;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://brockjohn.com" class="site-brand" style="text-decoration:none;">
+      <span class="site-brand-name"><em>Brock John</em></span>
+      <span class="site-brand-divider"></span>
+      <span class="site-brand-sub">Somatic Bodywork</span>
+    </a>
+    <span class="site-header-year">2026</span>
+  </div>
+</header>
+
+<div class="page-content">
+<div style="max-width: 780px; margin: 0 auto;">
+
+  <header class="page-header">
+    <p class="eyebrow">Based on Mind Over Mood · Greenberger & Padesky</p>
+    <h1>Cognitive Behavioral <em>Worksheets</em></h1>
+    <p class="subtitle">Five interactive tools drawn from the second edition — thought records, mood tracking, core belief work, and behavioral activation.</p>
+  </header>
+
+  <div class="client-email-bar">
+    <label for="client-email">Your email</label>
+    <input type="email" id="client-email" placeholder="Enter your email to receive a copy when you save…" />
+    <span class="email-hint">A PDF copy goes to you + Brock on every save</span>
+  </div>
+
+  <nav class="nav-tabs" role="tablist">
+    <button class="nav-tab active" role="tab" onclick="switchTab(0)" id="tab-0">Thought Record</button>
+    <button class="nav-tab" role="tab" onclick="switchTab(1)" id="tab-1">Mood Log</button>
+    <button class="nav-tab" role="tab" onclick="switchTab(2)" id="tab-2">Hot Cross Bun</button>
+    <button class="nav-tab" role="tab" onclick="switchTab(3)" id="tab-3">Core Beliefs</button>
+    <button class="nav-tab" role="tab" onclick="switchTab(4)" id="tab-4">Activity Chart</button>
+  </nav>
+
+  <!-- WORKSHEET 1: 7-Column Thought Record -->
+  <section class="worksheet active" id="ws-0" aria-labelledby="tab-0">
+
+    <div class="ws-header">
+      <div class="ws-number">01</div>
+      <div class="ws-title-block">
+        <h2>7-Column Thought Record</h2>
+        <p class="ws-desc">The core CBT tool for examining automatic thoughts. Move through each column to identify the thought, evaluate evidence, and find a balanced perspective.</p>
+      </div>
+    </div>
+
+    <div class="intro-box">
+      <strong style="font-weight:500; color: var(--brown-mid);">How to use this:</strong> Work left to right. Start with the situation that triggered an emotional shift, then track what you felt, what your mind said, and the evidence for and against that thought. End by writing a more balanced alternative.
+    </div>
+
+    <div class="step-tracker">
+      <div class="step-item current" id="step-0">Situation</div>
+      <div class="step-item" id="step-1">Emotions</div>
+      <div class="step-item" id="step-2">Hot Thought</div>
+      <div class="step-item" id="step-3">Evidence</div>
+      <div class="step-item" id="step-4">Balanced</div>
+      <div class="step-item" id="step-5">Outcome</div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Situation</label>
+      <p class="field-sublabel">Who, what, when, where — just the observable facts</p>
+      <textarea id="tr-situation" placeholder="e.g., My manager walked past without saying hello at the start of the day."></textarea>
+    </div>
+
+    <div class="row-2">
+      <div class="field-group">
+        <label class="field-label">Emotions felt</label>
+        <p class="field-sublabel">Name each emotion and rate it 0–100</p>
+        <textarea class="sm" id="tr-emotions" placeholder="e.g., Anxious 75, Sad 40, Ashamed 60"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Physical sensations</label>
+        <p class="field-sublabel">What did your body feel?</p>
+        <textarea class="sm" id="tr-body" placeholder="e.g., Chest tight, stomach dropped, face flushed"></textarea>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Automatic thought — the "hot" thought</label>
+      <p class="field-sublabel">The thought linked most strongly to the emotion. Rate belief 0–100%.</p>
+      <textarea class="sm" id="tr-hotthought" placeholder="e.g., "She's angry at me. I must have done something wrong." — Belief: 85%"></textarea>
+    </div>
+
+    <div class="evidence-cols">
+      <div class="evidence-col supports">
+        <div class="col-head">Evidence that supports it</div>
+        <ul class="evidence-list" id="ev-for-list">
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+        </ul>
+        <button class="add-btn" onclick="addEvidence('ev-for-list')">+ Add</button>
+      </div>
+      <div class="evidence-col against">
+        <div class="col-head">Evidence that doesn't support it</div>
+        <ul class="evidence-list" id="ev-against-list">
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+          <li><input type="text" placeholder="Add a piece of evidence…" /></li>
+        </ul>
+        <button class="add-btn" onclick="addEvidence('ev-against-list')">+ Add</button>
+      </div>
+    </div>
+
+    <div class="thought-arrow">
+      <div class="thought-box editable" contenteditable="true" data-ph="Original automatic thought…" id="ta-original-display"></div>
+      <span class="arrow-icon">→</span>
+      <div class="thought-box editable" contenteditable="true" data-ph="Write your balanced, alternative thought here… Rate new belief 0–100%." id="ta-balanced"></div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Outcome — re-rate emotions</label>
+      <p class="field-sublabel">Go back to the emotions you listed above and re-rate each one now (0–100)</p>
+      <textarea class="sm" id="tr-outcome" placeholder="e.g., Anxious 40 (was 75), Sad 20 (was 40) — What shifted?"></textarea>
+    </div>
+
+    <div class="reflection-card">
+      <div class="rc-label">Reflection prompt</div>
+      <p>"If a close friend described this situation and thought to me, what would I gently say to them?"</p>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="markStep(0); emailWorksheet(0, true)">Save & complete</button>
+      <button class="btn-secondary" onclick="clearWS('ws-0')">Clear form</button>
+      <button class="btn-email" onclick="emailWorksheet(0)" id="email-btn-0">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email results
+      </button>
+      <span class="email-status" id="email-status-0"></span>
+      <span class="save-indicator" id="save-0">Saved</span>
+    </div>
+  </section>
+
+  <!-- WORKSHEET 2: Daily Mood Log -->
+  <section class="worksheet" id="ws-1" aria-labelledby="tab-1">
+
+    <div class="ws-header">
+      <div class="ws-number">02</div>
+      <div class="ws-title-block">
+        <h2>Daily Mood Log</h2>
+        <p class="ws-desc">Track mood across seven emotions throughout the day. Noticing patterns across situations is the first step toward change.</p>
+      </div>
+    </div>
+
+    <div class="intro-box">
+      Rate each emotion 0–10 right now, or at the end of each day. Add notes on what influenced the score — situations, thoughts, or behaviors that stood out.
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Date & context</label>
+      <input type="text" id="mood-date" placeholder="e.g., Tuesday — work from home, poor sleep" />
+    </div>
+
+    <div class="mood-tracker" id="mood-tracker">
+      <!-- Generated by JS -->
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="row-2">
+      <div class="field-group">
+        <label class="field-label">What helped today?</label>
+        <textarea class="sm" id="mood-helped" placeholder="People, activities, moments of ease…"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">What made it harder?</label>
+        <textarea class="sm" id="mood-harder" placeholder="Situations, thoughts, avoided tasks…"></textarea>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Notable automatic thoughts today</label>
+      <textarea id="mood-thoughts" placeholder="Any thoughts that showed up repeatedly or felt especially believable…"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">One thing to carry into tomorrow</label>
+      <textarea class="sm" id="mood-tomorrow" placeholder="A small intention, something to notice, or an action to try…"></textarea>
+    </div>
+
+    <div class="reflection-card">
+      <div class="rc-label">Reflection prompt</div>
+      <p>"On days when my mood shifted for the better, even briefly — what was happening in those moments?"</p>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="markStep(1); emailWorksheet(1, true)">Save entry</button>
+      <button class="btn-secondary" onclick="clearWS('ws-1')">Clear</button>
+      <button class="btn-email" onclick="emailWorksheet(1)" id="email-btn-1">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email results
+      </button>
+      <span class="email-status" id="email-status-1"></span>
+      <span class="save-indicator" id="save-1">Saved</span>
+    </div>
+  </section>
+
+  <!-- WORKSHEET 3: Hot Cross Bun (5-Areas) -->
+  <section class="worksheet" id="ws-2" aria-labelledby="tab-2">
+
+    <div class="ws-header">
+      <div class="ws-number">03</div>
+      <div class="ws-title-block">
+        <h2>Hot Cross Bun Model</h2>
+        <p class="ws-desc">Maps the five-part connection between situation, thoughts, emotions, physical sensations, and behaviors — showing how each area influences the others.</p>
+      </div>
+    </div>
+
+    <div class="intro-box">
+      Start with a situation where you noticed a strong emotional reaction. Fill in each quadrant. Then look for the arrows — where is the feedback loop running? Which area, if shifted, would create the most relief?
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Situation / Trigger</label>
+      <input type="text" id="hcb-situation" placeholder="The specific moment or context…" />
+    </div>
+
+    <div class="hot-cross-box">
+      <div class="hcb-cell">
+        <div class="hcb-head">🧠 Thoughts</div>
+        <textarea class="sm" id="hcb-thoughts" placeholder="What went through your mind? What did it mean to you?"></textarea>
+      </div>
+      <div class="hcb-cell">
+        <div class="hcb-head">💛 Emotions</div>
+        <textarea class="sm" id="hcb-emotions" placeholder="Name the feelings and rate them 0–100…"></textarea>
+      </div>
+      <div class="hcb-cell">
+        <div class="hcb-head">🫀 Physical sensations</div>
+        <textarea class="sm" id="hcb-physical" placeholder="Where did you feel it in the body?"></textarea>
+      </div>
+      <div class="hcb-cell">
+        <div class="hcb-head">🏃 Behaviors</div>
+        <textarea class="sm" id="hcb-behaviors" placeholder="What did you do — or avoid doing?"></textarea>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-group">
+      <label class="field-label">The connection I notice most clearly</label>
+      <p class="field-sublabel">e.g., When I have the thought "I'll fail," my body tenses, which makes me avoid — which then confirms the thought</p>
+      <textarea id="hcb-connection" placeholder="Describe the loop you can see running between the five areas…"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Where is the easiest entry point to interrupt the loop?</label>
+      <div class="distortion-chips" id="entry-chips">
+        <span class="chip" onclick="toggleChip(this)">Change the thought</span>
+        <span class="chip" onclick="toggleChip(this)">Move the body</span>
+        <span class="chip" onclick="toggleChip(this)">Name the emotion</span>
+        <span class="chip" onclick="toggleChip(this)">Slow the breath</span>
+        <span class="chip" onclick="toggleChip(this)">Do the avoided thing</span>
+        <span class="chip" onclick="toggleChip(this)">Reach out to someone</span>
+        <span class="chip" onclick="toggleChip(this)">Reduce stimulation</span>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">One small experiment to try this week</label>
+      <textarea class="sm" id="hcb-experiment" placeholder="A concrete behavior, thought reframe, or body-based practice to test…"></textarea>
+    </div>
+
+    <div class="reflection-card">
+      <div class="rc-label">Reflection prompt</div>
+      <p>"Which part of the cycle do I have the most power over right now? What would it mean to intervene there, even imperfectly?"</p>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="markStep(2); emailWorksheet(2, true)">Save</button>
+      <button class="btn-secondary" onclick="clearWS('ws-2')">Clear</button>
+      <button class="btn-email" onclick="emailWorksheet(2)" id="email-btn-2">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email results
+      </button>
+      <span class="email-status" id="email-status-2"></span>
+      <span class="save-indicator" id="save-2">Saved</span>
+    </div>
+  </section>
+
+  <!-- WORKSHEET 4: Core Belief Work -->
+  <section class="worksheet" id="ws-3" aria-labelledby="tab-3">
+
+    <div class="ws-header">
+      <div class="ws-number">04</div>
+      <div class="ws-title-block">
+        <h2>Core Belief Work</h2>
+        <p class="ws-desc">Core beliefs are the deep, unconditional assumptions we hold about ourselves, others, and the world. This worksheet helps identify, test, and gradually reshape them.</p>
+      </div>
+    </div>
+
+    <div class="intro-box">
+      Core beliefs often surface during automatic thought work as underlying rules: "Because I made this mistake, it means I am…" Use the downward arrow technique — keep asking "what does this mean about me?" until you reach the root assumption.
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">The core belief I'm exploring</label>
+      <p class="field-sublabel">State it in the first person, as absolutely as it feels when it's active</p>
+      <input type="text" id="cb-belief" placeholder='e.g., "I am fundamentally unlovable." / "I am incompetent." / "The world is dangerous."' />
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">How strongly do I believe this right now?</label>
+      <div class="belief-bar-wrapper">
+        <div class="belief-bar-label">
+          <span>Current belief rating</span>
+          <span class="belief-val" id="cb-val">50%</span>
+        </div>
+        <input type="range" min="0" max="100" value="50" step="1" id="cb-slider" oninput="updateBelief(this, 'cb-val')" />
+        <div class="scale-labels"><span>0% — don't believe at all</span><span>100% — believe completely</span></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Where did this belief come from?</label>
+      <p class="field-sublabel">Early experiences, messages from caregivers, repeated situations…</p>
+      <textarea id="cb-origin" placeholder="Reflect on when this idea first made sense as a way to understand yourself or the world…"></textarea>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-group">
+      <label class="field-label">How might this belief be partially true — but overgeneralized?</label>
+      <textarea id="cb-partial" placeholder='e.g., "I did struggle in that relationship — but that doesn't mean all my relationships are doomed."'></textarea>
+    </div>
+
+    <div class="evidence-cols">
+      <div class="evidence-col supports">
+        <div class="col-head">Experiences that seem to confirm it</div>
+        <ul class="evidence-list" id="cb-for-list">
+          <li><input type="text" placeholder="Example from your life…" /></li>
+          <li><input type="text" placeholder="Example from your life…" /></li>
+        </ul>
+        <button class="add-btn" onclick="addEvidence('cb-for-list')">+ Add</button>
+      </div>
+      <div class="evidence-col against">
+        <div class="col-head">Experiences that challenge it</div>
+        <ul class="evidence-list" id="cb-against-list">
+          <li><input type="text" placeholder="Even small exceptions count…" /></li>
+          <li><input type="text" placeholder="Even small exceptions count…" /></li>
+        </ul>
+        <button class="add-btn" onclick="addEvidence('cb-against-list')">+ Add</button>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">A more balanced, compassionate belief to move toward</label>
+      <p class="field-sublabel">Not a forced positive — something more nuanced that accounts for both columns above</p>
+      <textarea id="cb-new" placeholder='e.g., "I have struggled in some relationships and also experienced real connection. My worth isn't determined by any single outcome."'></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">How strongly do I believe the new belief right now?</label>
+      <div class="belief-bar-wrapper">
+        <div class="belief-bar-label">
+          <span>New belief rating</span>
+          <span class="belief-val" id="cb-new-val">20%</span>
+        </div>
+        <input type="range" min="0" max="100" value="20" step="1" id="cb-new-slider" oninput="updateBelief(this, 'cb-new-val')" />
+        <div class="scale-labels"><span>0%</span><span>100%</span></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">One action this week that would be consistent with the new belief</label>
+      <textarea class="sm" id="cb-action" placeholder="A behavior, a conversation, a risk to take — something a person who held the new belief might do…"></textarea>
+    </div>
+
+    <div class="reflection-card">
+      <div class="rc-label">Reflection prompt</div>
+      <p>"What would it cost me to hold this belief a little more loosely? What might become possible if I did?"</p>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="markStep(3); emailWorksheet(3, true)">Save</button>
+      <button class="btn-secondary" onclick="clearWS('ws-3')">Clear</button>
+      <button class="btn-email" onclick="emailWorksheet(3)" id="email-btn-3">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email results
+      </button>
+      <span class="email-status" id="email-status-3"></span>
+      <span class="save-indicator" id="save-3">Saved</span>
+    </div>
+  </section>
+
+  <!-- WORKSHEET 5: Behavioral Activation -->
+  <section class="worksheet" id="ws-4" aria-labelledby="tab-4">
+
+    <div class="ws-header">
+      <div class="ws-number">05</div>
+      <div class="ws-title-block">
+        <h2>Behavioral Activation Planner</h2>
+        <p class="ws-desc">Depression and anxiety narrow our world. This planner schedules activities that restore a sense of mastery, pleasure, or connection — even in small doses.</p>
+      </div>
+    </div>
+
+    <div class="intro-box">
+      Identify activities across three categories: <strong style="font-weight:500;">mastery</strong> (things that give a sense of accomplishment), <strong style="font-weight:500;">pleasure</strong> (things you enjoy or used to enjoy), and <strong style="font-weight:500;">connection</strong> (contact with other people). Rate predicted vs. actual mood to test your predictions.
+    </div>
+
+    <div class="row-3">
+      <div class="field-group">
+        <label class="field-label">Mastery activities</label>
+        <p class="field-sublabel">Tasks, chores, responsibilities</p>
+        <textarea id="ba-mastery" placeholder="e.g., Make one phone call, tidy one surface, finish a task…"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Pleasure activities</label>
+        <p class="field-sublabel">Things you enjoy or enjoyed</p>
+        <textarea id="ba-pleasure" placeholder="e.g., Short walk, music, cooking something, reading…"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Connection activities</label>
+        <p class="field-sublabel">Contact, community, presence</p>
+        <textarea id="ba-connect" placeholder="e.g., Text a friend, sit in a café, attend a class…"></textarea>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="field-label" style="margin-bottom:1rem;">Weekly schedule — predicted vs. actual mood</p>
+
+    <table class="ws5-table" id="ba-table">
+      <thead>
+        <tr>
+          <th style="width:14%">Day</th>
+          <th style="width:30%">Planned activity</th>
+          <th style="width:12%">Predicted mood (0–10)</th>
+          <th style="width:12%">Actual mood (0–10)</th>
+          <th style="width:32%">What I noticed</th>
+        </tr>
+      </thead>
+      <tbody id="ba-tbody">
+      </tbody>
+    </table>
+
+    <div class="field-group">
+      <label class="field-label">Patterns I notice comparing predicted vs. actual</label>
+      <textarea id="ba-patterns" placeholder="Was the predicted mood consistently lower than actual? Which types of activities helped most?"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">One behavior I've been avoiding that I'll schedule this week</label>
+      <textarea class="sm" id="ba-avoidance" placeholder="Describe it — and what you predict will happen vs. what might actually happen…"></textarea>
+    </div>
+
+    <div class="reflection-card">
+      <div class="rc-label">Reflection prompt</div>
+      <p>"Waiting to feel motivated before acting often keeps us stuck. What if action came first, and motivation followed — even slightly?"</p>
+    </div>
+
+    <div class="completion-banner" id="all-done-banner">
+      <strong>You've completed all five worksheets.</strong>
+      All five CBT tools are filled in. Consider reviewing your thought records over time to notice how your thinking patterns shift — and save or print this page to revisit.
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" onclick="markStep(4); emailWorksheet(4, true)">Save</button>
+      <button class="btn-secondary" onclick="clearWS('ws-4')">Clear</button>
+      <button class="btn-secondary" onclick="window.print()">Print / Save PDF</button>
+      <button class="btn-email" onclick="emailWorksheet(4)" id="email-btn-4">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email results
+      </button>
+      <span class="email-status" id="email-status-4"></span>
+      <span class="save-indicator" id="save-4">Saved</span>
+    </div>
+  </section>
+
+</div>
+
+</div><!-- /page-content inner -->
+
+<script>
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const MOODS = [
+  { name: 'Sadness', id: 'sad' },
+  { name: 'Anxiety', id: 'anx' },
+  { name: 'Anger', id: 'ang' },
+  { name: 'Shame', id: 'sha' },
+  { name: 'Guilt', id: 'gui' },
+  { name: 'Hopelessness', id: 'hop' },
+  { name: 'Joy', id: 'joy' },
+];
+
+function buildMoodTracker() {
+  const t = document.getElementById('mood-tracker');
+  t.innerHTML = MOODS.map(m => `
+    <div class="mood-item">
+      <label>${m.name}</label>
+      <div class="slider-row">
+        <input type="range" min="0" max="10" value="5" step="1" id="mood-${m.id}"
+          oninput="updateMoodSlider(this,'mood-val-${m.id}')" style="--pct:50%"/>
+        <span class="mood-val" id="mood-val-${m.id}">5</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateMoodSlider(el, valId) {
+  document.getElementById(valId).textContent = el.value;
+  el.style.setProperty('--pct', (el.value / 10 * 100) + '%');
+}
+
+function buildBATable() {
+  const tbody = document.getElementById('ba-tbody');
+  tbody.innerHTML = DAYS.map(d => `
+    <tr>
+      <td style="font-weight:400; color:var(--text-muted); font-size:12.5px;">${d}</td>
+      <td><input type="text" placeholder="Activity…" /></td>
+      <td><input type="text" placeholder="0–10" style="width:60px" /></td>
+      <td><input type="text" placeholder="0–10" style="width:60px" /></td>
+      <td><input type="text" placeholder="Notes…" /></td>
+    </tr>
+  `).join('');
+}
+
+function updateBelief(el, valId) {
+  document.getElementById(valId).textContent = el.value + '%';
+  el.style.setProperty('--pct', el.value + '%');
+}
+
+function switchTab(idx) {
+  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.worksheet').forEach((w,i) => w.classList.toggle('active', i === idx));
+}
+
+function addEvidence(listId) {
+  const list = document.getElementById(listId);
+  const li = document.createElement('li');
+  li.innerHTML = '<input type="text" placeholder="Add a piece of evidence…" />';
+  list.appendChild(li);
+  li.querySelector('input').focus();
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+}
+
+let completedSteps = new Set();
+
+function markStep(idx) {
+  completedSteps.add(idx);
+  const ind = document.getElementById('save-' + idx);
+  ind.classList.add('show');
+  setTimeout(() => ind.classList.remove('show'), 2500);
+  if (completedSteps.size === 5) {
+    document.getElementById('all-done-banner').classList.add('visible');
+  }
+}
+
+function clearWS(id) {
+  const ws = document.getElementById(id);
+  ws.querySelectorAll('textarea').forEach(t => t.value = '');
+  ws.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+  ws.querySelectorAll('input[type="range"]').forEach(r => {
+    r.value = r.id === 'cb-new-slider' ? 20 : 50;
+    r.dispatchEvent(new Event('input'));
+  });
+  ws.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
+  ws.querySelectorAll('[contenteditable]').forEach(c => c.textContent = '');
+  if (id === 'ws-1') buildMoodTracker();
+}
+
+buildMoodTracker();
+buildBATable();
+
+const WS_NAMES = [
+  '7-Column Thought Record',
+  'Daily Mood Log',
+  'Hot Cross Bun Model',
+  'Core Belief Work',
+  'Behavioral Activation Planner'
+];
+
+function collectWorksheetData(wsIdx) {
+  const ws = document.getElementById('ws-' + wsIdx);
+  const data = {};
+  ws.querySelectorAll('textarea, input[type="text"]').forEach(el => {
+    const label = el.closest('.field-group')?.querySelector('.field-label')?.textContent?.trim()
+      || el.closest('.hcb-cell')?.querySelector('.hcb-head')?.textContent?.trim()
+      || el.closest('.evidence-col')?.querySelector('.col-head')?.textContent?.trim()
+      || el.closest('td')?.previousElementSibling?.textContent?.trim()
+      || el.placeholder?.slice(0, 40)
+      || el.id || 'field';
+    if (el.value?.trim()) {
+      data[label] = (data[label] ? data[label] + '\n' : '') + el.value.trim();
+    }
+  });
+  ws.querySelectorAll('input[type="range"]').forEach(el => {
+    const wrapper = el.closest('.belief-bar-wrapper, .mood-item');
+    const label = wrapper?.querySelector('label, .belief-bar-label span')?.textContent?.trim() || el.id;
+    data[label] = el.value + (el.id.includes('cb') ? '%' : '/10');
+  });
+  ws.querySelectorAll('.chip.selected').forEach(el => {
+    data['Selected approach'] = (data['Selected approach'] ? data['Selected approach'] + ', ' : '') + el.textContent.trim();
+  });
+  ws.querySelectorAll('[contenteditable]').forEach(el => {
+    if (el.textContent?.trim()) {
+      const ph = el.dataset.ph || 'Thought';
+      data[ph.slice(0, 40)] = el.textContent.trim();
+    }
+  });
+  return data;
+}
+
+function buildPDF(wsIdx) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  const pw = doc.internal.pageSize.getWidth();
+  const ph = doc.internal.pageSize.getHeight();
+  const margin = 48;
+  const contentW = pw - margin * 2;
+  let y = margin;
+
+  const CREAM = [245, 238, 216];
+  const BROWN = [46, 31, 14];
+  const GOLD  = [201, 169, 110];
+  const AMBER = [107, 76, 42];
+  const MUTED = [122, 96, 72];
+
+  doc.setFillColor(...CREAM);
+  doc.rect(0, 0, pw, ph, 'F');
+
+  doc.setDrawColor(...GOLD);
+  doc.setLineWidth(0.5);
+  doc.rect(margin - 12, margin - 12, contentW + 24, ph - margin * 2 + 24);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(...GOLD);
+  doc.text('MIND OVER MOOD · CBT WORKSHEETS', margin, y);
+  y += 6;
+  doc.setDrawColor(...GOLD);
+  doc.setLineWidth(0.8);
+  doc.line(margin, y, pw - margin, y);
+  y += 20;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(...BROWN);
+  doc.text(WS_NAMES[wsIdx], margin, y);
+  y += 8;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(...MUTED);
+  doc.text('Submitted ' + new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }), margin, y);
+  y += 20;
+
+  doc.setDrawColor(...GOLD);
+  doc.setLineWidth(0.3);
+  doc.line(margin, y, pw - margin, y);
+  y += 18;
+
+  const data = collectWorksheetData(wsIdx);
+  const entries = Object.entries(data);
+
+  if (entries.length === 0) {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(11);
+    doc.setTextColor(...MUTED);
+    doc.text('No responses entered for this worksheet.', margin, y);
+  }
+
+  entries.forEach(([label, value]) => {
+    if (y > ph - margin - 60) {
+      doc.addPage();
+      doc.setFillColor(...CREAM);
+      doc.rect(0, 0, pw, ph, 'F');
+      y = margin;
+    }
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(...AMBER);
+    doc.text(label.toUpperCase(), margin, y);
+    y += 12;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(...BROWN);
+    const lines = doc.splitTextToSize(value, contentW);
+    lines.forEach(line => {
+      if (y > ph - margin - 30) {
+        doc.addPage();
+        doc.setFillColor(...CREAM);
+        doc.rect(0, 0, pw, ph, 'F');
+        y = margin;
+      }
+      doc.text(line, margin, y);
+      y += 15;
+    });
+    y += 10;
+
+    doc.setDrawColor(...GOLD);
+    doc.setLineWidth(0.2);
+    doc.line(margin, y - 4, pw - margin, y - 4);
+    y += 4;
+  });
+
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(...MUTED);
+    doc.text('brockjohn.com · Mind Over Mood Worksheets', margin, ph - 24);
+    doc.text('Page ' + i + ' of ' + totalPages, pw - margin, ph - 24, { align: 'right' });
+  }
+
+  return doc.output('datauristring').split(',')[1];
+}
+
+async function emailWorksheet(wsIdx, fromSave = false) {
+  const btn = document.getElementById('email-btn-' + wsIdx);
+  const statusEl = document.getElementById('email-status-' + wsIdx);
+
+  const clientEmail = document.getElementById('client-email').value.trim();
+
+  const data = collectWorksheetData(wsIdx);
+  if (Object.keys(data).length === 0) {
+    if (!fromSave) {
+      statusEl.className = 'email-status error';
+      statusEl.textContent = 'Fill in at least one field first';
+      statusEl.style.display = 'inline-flex';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+    }
+    return;
+  }
+
+  btn.disabled = true;
+  statusEl.className = 'email-status sending';
+  statusEl.innerHTML = '<span class="spin">⟳</span> Generating PDF…';
+  statusEl.style.display = 'inline-flex';
+
+  let pdfBase64;
+  try {
+    pdfBase64 = buildPDF(wsIdx);
+  } catch(e) {
+    btn.disabled = false;
+    statusEl.className = 'email-status error';
+    statusEl.textContent = 'PDF error — try again';
+    statusEl.style.display = 'inline-flex';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+    return;
+  }
+
+  statusEl.innerHTML = '<span class="spin">⟳</span> Sending…';
+
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        worksheetName: WS_NAMES[wsIdx],
+        worksheetIndex: wsIdx,
+        pdfBase64,
+        clientEmail: clientEmail || null,
+        date: new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' })
+      })
+    });
+
+    if (res.ok) {
+      btn.disabled = false;
+      statusEl.className = 'email-status sent';
+      statusEl.textContent = clientEmail ? '✓ Sent to you & Brock' : '✓ Sent to Brock';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+    } else {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || res.statusText);
+    }
+  } catch(e) {
+    btn.disabled = false;
+    statusEl.className = 'email-status error';
+    statusEl.textContent = 'Send failed — check API key';
+    statusEl.style.display = 'inline-flex';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 5000);
+  }
+}
+
+
+const cbSlider = document.getElementById('cb-slider');
+if (cbSlider) {
+  cbSlider.style.setProperty('--pct', '50%');
+}
+const cbNewSlider = document.getElementById('cb-new-slider');
+if (cbNewSlider) {
+  cbNewSlider.style.setProperty('--pct', '20%');
+}
+</script>
+</div><!-- /page-content -->
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-brand-block">
+      <p class="footer-name"><em>Brock John</em></p>
+    </div>
+    <div class="footer-right">
+      <p class="footer-copy">
+        &copy; 2026 Brock John<br>
+        Houston, TX<br>
+        Somatic Sex Education
+      </p>
+      <p class="footer-ornament">bj</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
