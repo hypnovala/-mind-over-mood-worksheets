@@ -1,7 +1,7 @@
 export const config = { runtime: 'edge' };
 
-const TO_EMAIL = 'homwithbrockjohn@gmail.com';
-const FROM_EMAIL = 'worksheets@brockjohn.com'; // change to your verified Resend domain
+const TO_EMAIL = process.env.TO_EMAIL;
+const FROM_EMAIL = process.env.FROM_EMAIL;
 
 export default async function handler(req) {
   if (req.method !== 'POST') {
@@ -14,6 +14,13 @@ export default async function handler(req) {
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
   if (!RESEND_API_KEY) {
     return new Response(JSON.stringify({ error: 'RESEND_API_KEY not set' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (!TO_EMAIL || !FROM_EMAIL) {
+    return new Response(JSON.stringify({ error: 'TO_EMAIL or FROM_EMAIL env var not set' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
