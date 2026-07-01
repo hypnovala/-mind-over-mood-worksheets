@@ -533,6 +533,58 @@
 
   .btn-secondary:hover { background: rgba(201, 169, 110, 0.08); border-color: var(--gold); }
 
+  .action-row button[data-tooltip] {
+    position: relative;
+  }
+
+  .action-row button[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(6px);
+    min-width: 180px;
+    max-width: 240px;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    background: rgba(46, 31, 14, 0.96);
+    color: var(--cream);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-transform: none;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(46, 31, 14, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+  }
+
+  .action-row button[data-tooltip]::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 4px);
+    transform: translateX(-50%) translateY(6px);
+    border: 6px solid transparent;
+    border-top-color: rgba(46, 31, 14, 0.96);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+  }
+
+  .action-row button[data-tooltip]:hover::after,
+  .action-row button[data-tooltip]:hover::before,
+  .action-row button[data-tooltip]:focus-visible::after,
+  .action-row button[data-tooltip]:focus-visible::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
   .progress-save {
     font-size: 12px;
     color: var(--text-muted);
@@ -1117,9 +1169,9 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(0); emailWorksheet(0, true, true)">Save &amp; Send</button>
-      <button class="btn-secondary" onclick="markStep(0); emailWorksheet(0, true, false)">Save as PDF</button>
-      <button class="btn-secondary" onclick="clearWS('ws-0')">Clear form</button>
+      <button class="btn-primary" data-tooltip="Saves your worksheet and opens an email draft to send it." onclick="markStep(0); emailWorksheet(0, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" data-tooltip="Downloads this worksheet as a PDF you can keep or share later." onclick="markStep(0); emailWorksheet(0, true, false)">Save as PDF</button>
+      <button class="btn-secondary" data-tooltip="Clears all entries in this form so you can start fresh." onclick="clearWS('ws-0')">Clear form</button>
       <span class="email-status" id="email-status-0"></span>
       <span class="save-indicator" id="save-0">PDF opened</span>
     </div>
@@ -1178,9 +1230,9 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(1); emailWorksheet(1, true, true)">Save &amp; Send</button>
-      <button class="btn-secondary" onclick="markStep(1); emailWorksheet(1, true, false)">Save as PDF</button>
-      <button class="btn-secondary" onclick="clearWS('ws-1')">Clear</button>
+      <button class="btn-primary" data-tooltip="Saves your worksheet and opens an email draft to send it." onclick="markStep(1); emailWorksheet(1, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" data-tooltip="Downloads this worksheet as a PDF you can keep or share later." onclick="markStep(1); emailWorksheet(1, true, false)">Save as PDF</button>
+      <button class="btn-secondary" data-tooltip="Clears all entries in this form so you can start fresh." onclick="clearWS('ws-1')">Clear</button>
       <span class="email-status" id="email-status-1"></span>
       <span class="save-indicator" id="save-1">PDF opened</span>
     </div>
@@ -1257,9 +1309,9 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(2); emailWorksheet(2, true, true)">Save &amp; Send</button>
-      <button class="btn-secondary" onclick="markStep(2); emailWorksheet(2, true, false)">Save as PDF</button>
-      <button class="btn-secondary" onclick="clearWS('ws-2')">Clear</button>
+      <button class="btn-primary" data-tooltip="Saves your worksheet and opens an email draft to send it." onclick="markStep(2); emailWorksheet(2, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" data-tooltip="Downloads this worksheet as a PDF you can keep or share later." onclick="markStep(2); emailWorksheet(2, true, false)">Save as PDF</button>
+      <button class="btn-secondary" data-tooltip="Clears all entries in this form so you can start fresh." onclick="clearWS('ws-2')">Clear</button>
       <span class="email-status" id="email-status-2"></span>
       <span class="save-indicator" id="save-2">PDF opened</span>
     </div>
@@ -1359,9 +1411,9 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(3); emailWorksheet(3, true, true)">Save &amp; Send</button>
-      <button class="btn-secondary" onclick="markStep(3); emailWorksheet(3, true, false)">Save as PDF</button>
-      <button class="btn-secondary" onclick="clearWS('ws-3')">Clear</button>
+      <button class="btn-primary" data-tooltip="Saves your worksheet and opens an email draft to send it." onclick="markStep(3); emailWorksheet(3, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" data-tooltip="Downloads this worksheet as a PDF you can keep or share later." onclick="markStep(3); emailWorksheet(3, true, false)">Save as PDF</button>
+      <button class="btn-secondary" data-tooltip="Clears all entries in this form so you can start fresh." onclick="clearWS('ws-3')">Clear</button>
       <span class="email-status" id="email-status-3"></span>
       <span class="save-indicator" id="save-3">PDF opened</span>
     </div>
@@ -1439,9 +1491,9 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(4); emailWorksheet(4, true, true)">Save &amp; Send</button>
-      <button class="btn-secondary" onclick="markStep(4); emailWorksheet(4, true, false)">Save as PDF</button>
-      <button class="btn-secondary" onclick="clearWS('ws-4')">Clear</button>
+      <button class="btn-primary" data-tooltip="Saves your worksheet and opens an email draft to send it." onclick="markStep(4); emailWorksheet(4, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" data-tooltip="Downloads this worksheet as a PDF you can keep or share later." onclick="markStep(4); emailWorksheet(4, true, false)">Save as PDF</button>
+      <button class="btn-secondary" data-tooltip="Clears all entries in this form so you can start fresh." onclick="clearWS('ws-4')">Clear</button>
       <button class="btn-secondary" onclick="window.print()">Print / Save PDF</button>
       <span class="email-status" id="email-status-4"></span>
       <span class="save-indicator" id="save-4">PDF opened</span>
