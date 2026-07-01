@@ -1117,14 +1117,11 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(0); emailWorksheet(0, true)">Save & complete</button>
+      <button class="btn-primary" onclick="markStep(0); emailWorksheet(0, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" onclick="markStep(0); emailWorksheet(0, true, false)">Save as PDF</button>
       <button class="btn-secondary" onclick="clearWS('ws-0')">Clear form</button>
-      <button class="btn-email" onclick="emailWorksheet(0)" id="email-btn-0">
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email results
-      </button>
       <span class="email-status" id="email-status-0"></span>
-      <span class="save-indicator" id="save-0">Saved</span>
+      <span class="save-indicator" id="save-0">PDF opened</span>
     </div>
   </section>
 
@@ -1181,14 +1178,11 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(1); emailWorksheet(1, true)">Save entry</button>
+      <button class="btn-primary" onclick="markStep(1); emailWorksheet(1, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" onclick="markStep(1); emailWorksheet(1, true, false)">Save as PDF</button>
       <button class="btn-secondary" onclick="clearWS('ws-1')">Clear</button>
-      <button class="btn-email" onclick="emailWorksheet(1)" id="email-btn-1">
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email results
-      </button>
       <span class="email-status" id="email-status-1"></span>
-      <span class="save-indicator" id="save-1">Saved</span>
+      <span class="save-indicator" id="save-1">PDF opened</span>
     </div>
   </section>
 
@@ -1263,14 +1257,11 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(2); emailWorksheet(2, true)">Save</button>
+      <button class="btn-primary" onclick="markStep(2); emailWorksheet(2, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" onclick="markStep(2); emailWorksheet(2, true, false)">Save as PDF</button>
       <button class="btn-secondary" onclick="clearWS('ws-2')">Clear</button>
-      <button class="btn-email" onclick="emailWorksheet(2)" id="email-btn-2">
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email results
-      </button>
       <span class="email-status" id="email-status-2"></span>
-      <span class="save-indicator" id="save-2">Saved</span>
+      <span class="save-indicator" id="save-2">PDF opened</span>
     </div>
   </section>
 
@@ -1368,14 +1359,11 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(3); emailWorksheet(3, true)">Save</button>
+      <button class="btn-primary" onclick="markStep(3); emailWorksheet(3, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" onclick="markStep(3); emailWorksheet(3, true, false)">Save as PDF</button>
       <button class="btn-secondary" onclick="clearWS('ws-3')">Clear</button>
-      <button class="btn-email" onclick="emailWorksheet(3)" id="email-btn-3">
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email results
-      </button>
       <span class="email-status" id="email-status-3"></span>
-      <span class="save-indicator" id="save-3">Saved</span>
+      <span class="save-indicator" id="save-3">PDF opened</span>
     </div>
   </section>
 
@@ -1451,15 +1439,12 @@
     </div>
 
     <div class="action-row">
-      <button class="btn-primary" onclick="markStep(4); emailWorksheet(4, true)">Save</button>
+      <button class="btn-primary" onclick="markStep(4); emailWorksheet(4, true, true)">Save &amp; Send</button>
+      <button class="btn-secondary" onclick="markStep(4); emailWorksheet(4, true, false)">Save as PDF</button>
       <button class="btn-secondary" onclick="clearWS('ws-4')">Clear</button>
       <button class="btn-secondary" onclick="window.print()">Print / Save PDF</button>
-      <button class="btn-email" onclick="emailWorksheet(4)" id="email-btn-4">
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        Email results
-      </button>
       <span class="email-status" id="email-status-4"></span>
-      <span class="save-indicator" id="save-4">Saved</span>
+      <span class="save-indicator" id="save-4">PDF opened</span>
     </div>
   </section>
 
@@ -1708,24 +1693,50 @@ function buildPDF(wsIdx) {
   return doc.output('datauristring').split(',')[1];
 }
 
-async function emailWorksheet(wsIdx, fromSave = false) {
-  const btn = document.getElementById('email-btn-' + wsIdx);
+async function emailWorksheet(wsIdx, fromSave = false, sendToBrock = true) {
   const statusEl = document.getElementById('email-status-' + wsIdx);
 
   const clientEmail = document.getElementById('client-email').value.trim();
 
   const data = collectWorksheetData(wsIdx);
-  if (Object.keys(data).length === 0) {
-    if (!fromSave) {
-      statusEl.className = 'email-status error';
-      statusEl.textContent = 'Fill in at least one field first';
-      statusEl.style.display = 'inline-flex';
-      setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+
+  // Save only — build PDF and open in a new browser tab
+  if (!sendToBrock) {
+    const data = collectWorksheetData(wsIdx);
+    if (Object.keys(data).length === 0) {
+      const ind = document.getElementById('save-' + wsIdx);
+      if (ind) {
+        ind.textContent = 'Fill in something first';
+        ind.classList.add('show');
+        setTimeout(() => { ind.classList.remove('show'); ind.textContent = 'Saved'; }, 2500);
+      }
+      return;
+    }
+    try {
+      const base64 = buildPDF(wsIdx);
+      const bytes = atob(base64);
+      const arr = new Uint8Array(bytes.length);
+      for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+      const blob = new Blob([arr], { type: 'application/pdf' });
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, '_blank');
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+      const ind = document.getElementById('save-' + wsIdx);
+      if (ind) { ind.classList.add('show'); setTimeout(() => ind.classList.remove('show'), 2500); }
+    } catch(e) {
+      console.error('PDF open error:', e);
     }
     return;
   }
 
-  btn.disabled = true;
+  if (Object.keys(data).length === 0) {
+    statusEl.className = 'email-status error';
+    statusEl.textContent = 'Fill in at least one field first';
+    statusEl.style.display = 'inline-flex';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+    return;
+  }
+
   statusEl.className = 'email-status sending';
   statusEl.innerHTML = '<span class="spin">⟳</span> Generating PDF…';
   statusEl.style.display = 'inline-flex';
@@ -1734,8 +1745,7 @@ async function emailWorksheet(wsIdx, fromSave = false) {
   try {
     pdfBase64 = buildPDF(wsIdx);
   } catch(e) {
-    btn.disabled = false;
-    statusEl.className = 'email-status error';
+      statusEl.className = 'email-status error';
     statusEl.textContent = 'PDF error — try again';
     statusEl.style.display = 'inline-flex';
     setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
@@ -1758,8 +1768,7 @@ async function emailWorksheet(wsIdx, fromSave = false) {
     });
 
     if (res.ok) {
-      btn.disabled = false;
-      statusEl.className = 'email-status sent';
+          statusEl.className = 'email-status sent';
       statusEl.textContent = clientEmail ? '✓ Sent to you & Brock' : '✓ Sent to Brock';
       setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
     } else {
@@ -1767,8 +1776,7 @@ async function emailWorksheet(wsIdx, fromSave = false) {
       throw new Error(err.error || res.statusText);
     }
   } catch(e) {
-    btn.disabled = false;
-    statusEl.className = 'email-status error';
+      statusEl.className = 'email-status error';
     statusEl.textContent = 'Send failed — check API key';
     statusEl.style.display = 'inline-flex';
     setTimeout(() => { statusEl.style.display = 'none'; }, 5000);
